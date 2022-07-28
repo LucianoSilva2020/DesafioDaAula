@@ -1,4 +1,5 @@
-
+import random  # Importa A biblioteca Ramdom para sortear o cliente
+from time import sleep
 clientes = {}  # Criando Dicionario que irá armazenar os clientes
 continuar = True  # Comando para verificar o While
 
