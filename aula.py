@@ -1,46 +1,37 @@
-from random import randint
-import time 
 
-contadorcli = 0  # contador de clientes da operação
-iniciar = 0
-
+clientes = {}  # Criando Dicionario que irá armazenar os clientes
+continuar = True  # Comando para verificar o While
 
 abrirloja = 0
 while(abrirloja != 1):
-    abrirloja = (
-        int(input('Deseja abrir a loja? Digite 1 para SIM, 2 para NÃO.\n')))
+    abrirloja = (int(input('Deseja abrir o caixa ? Digite 1 para SIM, 2 para NÃO.\n')))
     if abrirloja == 1:
         print('Realizando abertura de caixa...')
-        time.sleep(4)
+        sleep(4)
         print('Caixa aberto.')
     else:
-        print('Loja fechada. Não é possivel realizar vendas.')
-
-iniciar = 0
-while(iniciar != 1):
-    iniciar = int(input('\nIniciar venda? Digite 1 para SIM, 2 para NÃO.\n'))
-    if iniciar == 1:
-        print('venda iniciada... \n Adicionado Chocolate em Barra 100GR... \n Adicionado Chocolate Quente...\n')
+        print('Caixa fechado. Não é possivel realizar vendas.')
+    
+while continuar == True:
+# Estrutura que registra o cliente e o número de telefone em um Dicionário
+    nomeCliente = input('Infome o nome do cliente: ')
+    telefoneCliente = int(input('Informe o telefone do cliente: '))
+    clientes[nomeCliente] = telefoneCliente
+    cont_registro = input('Deseja continuar registrando clientes? Digite 1 para SIM, 2 para NÃO: ')
+# Validador da estrutura de repetição
+    if cont_registro == '1':
+        continuar = True
+    elif cont_registro == '2':
+        continuar = False
     else:
-        print('Sistema reiniciando...')
-    dados = {}
-    compra = int(
-        input('Cliente finalizou a compra? Digite 1 para SIM, 2 para NÃO.\n'))
-    if compra == 1:
-        nome = input('Qual o nome do cliente? \n')
-        telefone = int(input('Qual o telefone do cliente? \n'))
-        continuar = int(
-            input('Deseja continuar com a loja aberta? Digite 1 para SIM, 2 para NÃO.'))
-        dados[nome] = telefone
-        if continuar == 1:
-            iniciar = 0
-        else:
-            print('Fechando caixa...')
-            time.sleep(5)
-            print('caixa fechado.')
-            print(f'Os clientes que realizaram a compra hoje foram: ')
-            print(dados)
+        while cont_registro != 'y' and cont_registro != 'n':
+            print('Informe Uma Opção valida!')
+            cont_registro = input('Deseja continuar registrando clientes? Digite 1 para SIM, 2 para NÃO: ')
 
-    else:
-        iniciar = 0
-        print('Venda cancelada. Reiniciando programa...')
+# Uso da biblioteca random para sortear o vencedor, Mais em:
+'''https://theprogrammingexpert.com/get-random-value-from-dictionary-python/#:~:
+text=To%20get%20a%20random%20value%20from%20a%20dictionary,the%20random%20module%20
+choice%28%29function%2C%20list%28%29function%20and%20dictionary%20values%28%29function.'''
+vencedor_sorteio = random.choice(list(clientes.items()))
+# Printando usando o Fstring o item 0 (nome) e o item 1 (telefone) da tupla gerada pelo método random.choice que foi coletada do dicionário
+print(f'O Cliente sorteado foi: {vencedor_sorteio[0]}, e seu telefone é :{vencedor_sorteio[1]}')
